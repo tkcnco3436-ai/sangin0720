@@ -740,6 +740,8 @@ body { --bg-page: #ffffff; background: #ffffff; }
   font-size: 13px; line-height: 1.6; color: var(--txt-lighter); }
 .sw-footer__biz li:nth-child(3) { grid-column: 1 / -1; }
 .sw-footer__biz a { color: var(--txt-dark); text-decoration: underline; text-underline-offset: 2px; }
+.sw-br-m { display: none; }
+@media (max-width: 768px) { .sw-br-m { display: inline; } }
 
 /* 하단 카피 + 링크 */
 .sw-footer__bottom { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); flex-wrap: wrap; }
