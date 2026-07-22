@@ -623,6 +623,10 @@ body { --bg-page: #ffffff; background: #ffffff; }
 
 @media (max-width: 768px) {
   .tl-item { grid-template-columns: 1fr; gap: var(--space-16); }
+  /* 카드 하단: 버튼(위) → 배지(아래) 세로 배치 */
+  .tl-card__foot { flex-direction: column-reverse; align-items: stretch; gap: var(--space-12); }
+  .tl-cta { justify-content: center; }
+  .tl-tag { align-self: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tl-card, .tl-detail { transition: none; }
