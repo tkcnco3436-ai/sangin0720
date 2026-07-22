@@ -79,7 +79,7 @@ body { --bg-page: #ffffff; background: #ffffff; }
 /* ---------- 프롬프트 글래스 바 ---------- */
 .flexhero__prompt {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-16);
   width: fit-content;
   max-width: min(720px, 100%);
