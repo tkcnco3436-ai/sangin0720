@@ -1,0 +1,148 @@
+/*
+ * 브랜드 컬러 팔레트 재정의 #3 (../two-design.md 기준, 2026-07-15 갱신)
+ * 메인 컬러를 Red #E81411 + 프레스 단계 Dark Red #490B00 + Black/Dark Grey/Grey/White 뉴트럴로 교체.
+ * (이번 브랜드 이미지도 스와치별 표기된 HEX 라벨이 옆의 RGB 값과 안 맞는 오탈자로 보여서, RGB 쪽을
+ * 기준으로 근사함 — 정확한 hex 원본은 아님. 이 이미지엔 caution/negative 색상이 없어서 그 두 시맨틱은
+ * 이전 재정의 값을 그대로 유지함.)
+ * SOCAR Frame 2.0의 구조(간격/라운드/그림자/모션 등)는 그대로 유지, 이번 교체는 컬러 축만 대상.
+ * 표면은 플랫 필, 그림자는 헤어라인 위주(전부 미세), 버튼은 pill 아니고 8~14px 라운드.
+ * --radius-pill은 칩/배지/원형 전용, 버튼류는 style.css에서 --radius-16으로 개별 교체함.
+ */
+:root {
+  /* ---------- Primary (Red #E81411, 프레스 시 Dark Red #490B00) ---------- */
+  --ink-primary: #E81411;        /* Red — 메인 컬러 */
+  --ink-primary-active: #490B00; /* Dark Red 스와치 — 프레스/강조 단계 */
+  --black: #000000;              /* Black 스와치 — 순흑, CTA 등 장식용 */
+
+  /* 기존 코드 호환 별칭: 액센트 = Red */
+  --linegreen: var(--ink-primary);
+  --disabled-gray: #CFCFCF;
+  --blue-400: var(--ink-primary);
+  --blue-500: #A31009; /* primary-strong — regular와 heavy 사이 중간 스텝 */
+  --blue-800: var(--ink-primary-active);
+  --cobalt-300: #CFCFCF;
+  --cobalt-400: #B0B0B0;
+
+  /* ---------- Neutral Scale (Black/Dark Grey #3F3E3E/Grey #CFCFCF/White 4점 기준) ---------- */
+  --grey-25:  #FCFCFC;
+  --grey-50:  #F2F2F2;
+  --grey-100: #E6E6E6;
+  --grey-200: #D8D8D8;
+  --grey-300: #CFCFCF;  /* Grey 스와치 그대로 */
+  --grey-400: #B0B0B0;
+  --grey-500: #8F8F8F;
+  --grey-600: #737373;
+  --grey-700: #595959;
+  --grey-800: #4A4A4A;
+  --grey-900: #3F3E3E;  /* Dark Grey 스와치 그대로 — text-strong */
+
+  --green-300: #A6E3BC; --green-400: #3DAA5C; --green-500: #3DAA5C;  /* 팔레트: Green */
+  --orange-300: #F6DD8E; --orange-400: #EFC22A; --orange-500: #D9A600; /* 이전 재정의 유지(이번 이미지엔 caution 없음) */
+  --red-300: #F8B9B4; --red-400: #F49992;   /* 이전 재정의 유지(이번 이미지엔 negative 없음) */
+
+  /* 파스텔 오브 5종 별칭: 이번 이미지가 제공하는 3색(Green/Blue/Light Purple)만 갱신, 나머지 2개는 이전 값 유지 */
+  --gradient-mint: #3DAA5C;     /* Green */
+  --gradient-peach: #C77FC4;    /* (이전 재정의 유지) Plum */
+  --gradient-lavender: #A9A4FA; /* Light Purple */
+  --gradient-sky: #3D57FF;      /* Blue */
+  --gradient-rose: #B39DF5;     /* (이전 재정의 유지) Soft purple */
+
+  --black-85: rgba(0, 0, 0, 0.85);
+  --black-60: rgba(0, 0, 0, 0.60);
+  --black-40: rgba(0, 0, 0, 0.40);
+  --black-8:  #E6E6E6;
+  --white-100: #ffffff;
+  --white-90:  rgba(255, 255, 255, 0.90);
+  --white-60:  rgba(255, 255, 255, 0.60);
+  --white-12:  rgba(255, 255, 255, 0.12);
+
+  --opacity-black-80: rgba(0, 0, 0, 0.80);
+  --opacity-black-40: rgba(0, 0, 0, 0.44); /* colors.dimmed-regular */
+  --opacity-black-5:  rgba(0, 0, 0, 0.06); /* colors.pressed-regular */
+  --opacity-white-10: rgba(255, 255, 255, 0.10);
+  --opacity-white-50: rgba(255, 255, 255, 0.50);
+
+  /* ---------- 시맨틱 ---------- */
+  --txt-cto: var(--grey-900);
+  --txt-darkest: var(--grey-900);     /* Dark Grey — colors.text-strong */
+  --txt-dark: #595959;                /* colors.text-primary(본문 기본) */
+  --txt-lighter: #737373;             /* colors.text-secondary */
+  --txt-faint: #6E6E6E;               /* colors.text-tertiary — 흰 배경 대비 ≥4.5:1(WCAG AA). 위계는 색이 아니라 크기·굵기로 */
+  --txt-link: var(--ink-primary);
+  --txt-on-dark: #ffffff;
+  --txt-on-dark-lighter: #B0B0B0;
+
+  --bg-page: #F2F2F2;
+  --bg-surface: #ffffff;   /* Pure White 스와치 그대로 */
+  --bg-subtle: #FCFCFC;
+  --bg-dark: #3F3E3E;
+
+  --border-neutral: #D8D8D8;
+  --border-secondary: #D8D8D8;
+  --border-active: var(--ink-primary);
+  --border-on-dark: var(--white-12);
+
+  --fill-accent-blue: #FBE1E0;    /* red-50 근사(primary 계열 틴트) */
+  --fill-accent-orange: #FCF3D9; /* caution-weak 근사(이전 재정의 유지) */
+  --fill-accent-green: #E4F5EA; /* positive-weak 근사 */
+  --fill-accent-cobalt: rgba(176, 176, 176, 0.16);
+  --fill-accent-purple: #EDECFE; /* Light Purple 틴트 */
+  --fill-accent-pink: #FDEBEA; /* negative-weak 근사 */
+
+  /* ---------- 타이포그래피 ----------
+     SOCAR Frame 2.0은 Pretendard Variable 단일 패밀리 하드룰 — 이 프로젝트가 이미 이전부터 Pretendard로
+     통일해둔 결정과 정확히 일치해서 폰트 스택 자체는 바뀔 게 없음. weight 위계만 SOCAR 컨벤션(Display·
+     Heading=bold700 / Title=semibold600 / Body=regular400)에 맞춤. letter-spacing은 대부분 0. */
+  --font-heading: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+  --font-sans: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --tracking-body: 0;      /* SOCAR: display2 제외 전부 letter-spacing 0 */
+  --tracking-display: 0;
+
+  /* ---------- 간격 (4px 기본단위, n÷25=px 스케일) ---------- */
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 36px;
+  --space-48: 40px;
+  --space-64: 64px;
+  --space-96: 96px;
+
+  /* ---------- radius: SOCAR radius-{n} 스케일(4/6/8/10/12/14/16/20/24) + circle ----------
+     버튼은 더 이상 pill 아님 — style.css의 버튼 클래스들이 --radius-16으로 개별 교체됨.
+     --radius-pill(9999)은 칩/배지/원형 전용으로 남김. */
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 16px;  /* rounded.radius-400 — 카드 */
+  --radius-16: 14px;  /* rounded.radius-350 — 버튼(large)/인풋/SelectionBox */
+  --radius-20: 24px;  /* rounded.radius-600 — 바텀시트 상단 코너 */
+  --radius-32: 24px;
+  --radius-full: 9999px;
+  --radius-pill: 9999px; /* Chip/배지/원형 전용 — 버튼엔 더 이상 안 씀 */
+
+  /* ---------- elevation: 그림자보다 1px 디바이더가 먼저 — 그림자는 전부 미세함 ---------- */
+  --shdw-medium: rgba(22, 23, 28, 0.04);
+  --shdw-large: rgba(0, 0, 0, 0.12);
+  --ev-2: 0 1px 2px rgba(22, 23, 28, 0.04);   /* shadow-sm */
+  --ev-3: 0 2px 4px rgba(0, 0, 0, 0.08);      /* shadow-tip 근사(카드용으로 재사용) */
+  --ev-gray-2: 0 1px 2px rgba(22, 23, 28, 0.04);
+  --ev-gray-3: 0 0 20px rgba(0, 0, 0, 0.14);  /* shadow-sheet 근사 */
+
+  /* ---------- 모션: 짧고 표준적(100~150ms), press 시 92% 스케일이 시그니처 ---------- */
+  --motion-fast: 150ms cubic-bezier(0.42, 0, 0.58, 1);
+  --opacity-disabled: 0.4;
+  --opacity-hover: 1;      /* SOCAR는 hover가 사실상 없음 — press(scale)가 모든 피드백을 담당 */
+  --opacity-pressed: 1;    /* 눌림은 opacity가 아니라 --press-scale로 표현 */
+  --press-scale: 0.92;     /* 인터랙티브 표면 공통 press feedback */
+  --press-scale-weak: 0.96; /* 텍스트 인접 행(chip/checkbox 등) 약한 press */
+}

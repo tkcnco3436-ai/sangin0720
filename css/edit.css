@@ -1,0 +1,107 @@
+/* ---------- 기본 정보 수정 페이지 (edit.html) ---------- */
+.mypage-edit-main { min-height: calc(100vh - 68px); }
+body.mypage-edit-bg { background: #F9FAFF; }
+.mypage-edit-page { max-width: 480px; margin: var(--space-32) auto 0; }
+.mypage-edit-avatar { display: flex; justify-content: center; margin-bottom: var(--space-24); }
+.mypage-edit-avatar .mypage-avatar-wrap { margin-top: 0; }
+.mypage-edit-overlay__head { margin-bottom: var(--space-20); }
+.mypage-edit-overlay__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  background: transparent;
+  border: none;
+  color: var(--txt-lighter);
+  font-size: 13px;
+  padding: 0;
+  margin-bottom: 60px;
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+}
+.mypage-edit-overlay__back:active { transform: scale(var(--press-scale-weak)); }
+.mypage-edit-overlay__title { font-size: 18px; font-weight: var(--weight-bold); color: var(--txt-darkest); margin: 0; }
+.mypage-mini-overlay__modal .mypage-edit-overlay__title { margin-bottom: var(--space-20); }
+
+/* ---------- 이메일/비밀번호 변경용 소형 모달: 모바일 하단시트 / PC 중앙카드 ---------- */
+.mypage-mini-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--opacity-black-40);
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+.mypage-mini-overlay.is-open { display: flex; }
+.mypage-mini-overlay__modal {
+  background: var(--bg-surface);
+  border-radius: var(--radius-20) var(--radius-20) 0 0;
+  box-shadow: var(--ev-gray-3);
+  padding: var(--space-12) var(--space-24) var(--space-32);
+  width: 100%;
+}
+.mypage-mini-overlay__handle {
+  display: block;
+  width: 40px;
+  height: 4px;
+  background: var(--grey-300);
+  border-radius: var(--radius-pill);
+  margin: 0 auto var(--space-20);
+}
+@media (min-width: 1024px) {
+  .mypage-mini-overlay { align-items: center; padding: var(--space-16); }
+  .mypage-mini-overlay__modal { max-width: 390px; border-radius: var(--radius-16); padding: var(--space-24); }
+  .mypage-mini-overlay__handle { display: none; }
+}
+.mypage-edit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-12) 0;
+  margin-bottom: var(--space-16);
+  border-bottom: 1px solid var(--border-neutral);
+}
+.mypage-edit-row__value { font-size: 14px; font-weight: var(--weight-medium); color: var(--txt-darkest); margin: var(--space-4) 0 0; }
+.mypage-form-error { display: none; font-size: 12px; color: var(--red-400); margin: var(--space-6) 0 0; }
+.mypage-form-error.is-visible { display: block; }
+.mypage-form-error.is-valid { color: var(--green-400); }
+.mypage-form-input.is-invalid { border-color: var(--red-400); }
+.mypage-form-input.is-valid { border-color: var(--green-400); }
+
+.mypage-pw-rules {
+  list-style: none;
+  margin: var(--space-4) 0 var(--space-16);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.mypage-pw-rules li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  font-size: 12px;
+  color: var(--grey-300);
+}
+.mypage-pw-rules li.is-met { color: var(--green-400); }
+
+.mypage-form-password-wrap { position: relative; }
+.mypage-form-password-wrap .mypage-form-input { padding-right: 40px; }
+.mypage-form-password-toggle {
+  position: absolute;
+  right: var(--space-12);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--txt-faint);
+  cursor: pointer;
+  padding: 0;
+}
+.mypage-form-password-toggle [data-mypage-eye-off-icon] { display: none; }
+.mypage-form-password-toggle.is-visible [data-mypage-eye-icon] { display: none; }
+.mypage-form-password-toggle.is-visible [data-mypage-eye-off-icon] { display: block; }

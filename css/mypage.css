@@ -1,0 +1,477 @@
+/* ---------- 커버: 인덱스 히어로와 동일한 WebGL 메시 그라디언트 재사용 ---------- */
+.mypage-cover {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  height: 160px;
+  overflow: hidden;
+  background: #5869f7;
+}
+@media (min-width: 768px) {
+  .mypage-cover { height: 280px; }
+}
+.mypage-cover__mesh { width: 100%; height: 100%; display: block; }
+.mypage-cover__typing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: var(--weight-bold);
+  color: #000;
+  white-space: nowrap;
+  z-index: 1;
+}
+.mypage-cover__caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background: #000;
+  vertical-align: -0.15em;
+  animation: mypageCaretBlink 800ms step-end infinite;
+}
+@keyframes mypageCaretBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mypage-cover__caret { animation: none; }
+}
+
+/* ---------- 프로필바: 아바타만 커버 위로 겹치고, 이름/이메일/버튼은 커버 아래에 위치 ---------- */
+.mypage-profile-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  gap: var(--space-24);
+  margin-top: var(--space-20);
+  margin-bottom: var(--space-48);
+}
+
+/* ---------- 결제 수단 추가: 카드 등록 + 약관 동의 팝업 ---------- */
+.mypage-card-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--opacity-black-40);
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+.mypage-card-overlay.is-open { display: flex; }
+.mypage-card-overlay__modal {
+  background: var(--bg-surface);
+  border-radius: var(--radius-20) var(--radius-20) 0 0;
+  box-shadow: var(--ev-gray-3);
+  padding: var(--space-12) var(--space-24) var(--space-32);
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.mypage-card-overlay__handle {
+  display: block;
+  width: 40px;
+  height: 4px;
+  background: var(--grey-300);
+  border-radius: var(--radius-pill);
+  margin: 0 auto var(--space-20);
+}
+/* PC(≥1024px): 하단 시트 대신 화면 중앙 카드로 전환 — 삭제 확인 시트와 동일 패턴 */
+@media (min-width: 1024px) {
+  .mypage-card-overlay { align-items: center; padding: var(--space-16); }
+  .mypage-card-overlay__modal { max-width: 390px; border-radius: var(--radius-16); padding: var(--space-24); }
+  .mypage-card-overlay__handle { display: none; }
+}
+.mypage-card-overlay__title { font-size: 16px; font-weight: var(--weight-bold); color: var(--txt-darkest); margin: 0 0 var(--space-20); }
+.mypage-form-card-number { display: flex; gap: var(--space-8); }
+
+/* ---------- 결제 수단 추가: 위자드(3단계) ---------- */
+.mypage-wizard-step-label { font-size: 12px; font-weight: var(--weight-semibold); color: var(--txt-faint); margin: 0 0 var(--space-6); }
+.mypage-wizard-step { display: none; }
+.mypage-wizard-step.is-active { display: block; }
+
+.mypage-issuer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-10);
+}
+.mypage-issuer-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  aspect-ratio: 1;
+  padding: var(--space-10);
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-12);
+  background: var(--bg-surface);
+  cursor: pointer;
+  transition: transform var(--motion-fast), border-color var(--motion-fast);
+}
+.mypage-issuer-tile img { width: 28px; height: 28px; }
+.mypage-issuer-tile span { font-size: 12px; font-weight: var(--weight-medium); color: var(--txt-dark); text-align: center; }
+.mypage-issuer-tile:active { transform: scale(var(--press-scale-weak)); }
+.mypage-issuer-tile.is-selected { border-color: var(--ink-primary); border-width: 2px; }
+.mypage-form-card-number input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-8);
+  text-align: center;
+  font-size: 14px;
+}
+.mypage-form-row { display: flex; gap: var(--space-12); }
+.mypage-form-row .mypage-form-field { flex: 1; }
+.mypage-form-expiry { display: flex; align-items: center; gap: var(--space-6); }
+.mypage-form-expiry input {
+  width: 56px;
+  height: 44px;
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-8);
+  text-align: center;
+  font-size: 14px;
+}
+.mypage-form-expiry span { color: var(--txt-faint); }
+
+.mypage-consent { margin: var(--space-8) 0 var(--space-20); }
+.mypage-consent__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) 0;
+  font-size: 13px;
+  color: var(--txt-dark);
+}
+.mypage-consent__row input {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  cursor: pointer;
+  position: relative;
+}
+.mypage-consent__row input:checked { background: var(--ink-primary); border-color: var(--ink-primary); }
+.mypage-consent__row input:checked::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.mypage-consent__row--all {
+  font-weight: var(--weight-semibold);
+  color: var(--txt-darkest);
+  border-bottom: 1px solid var(--border-neutral);
+  padding-bottom: var(--space-10);
+  margin-bottom: var(--space-6);
+}
+
+/* .mypage-card-overlay__actions 는 mypage-common.css로 이동(edit.html도 재사용하는 공용 레이어) */
+
+/* ---------- 결제 수단 삭제 확인 팝업: 하단 바텀시트 구조(토스 스마트패스 참고) ---------- */
+.mypage-delete-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--opacity-black-40);
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+.mypage-delete-overlay.is-open { display: flex; }
+.mypage-delete-sheet {
+  background: var(--bg-surface);
+  width: 100%;
+  border-radius: var(--radius-20) var(--radius-20) 0 0;
+  box-shadow: var(--ev-gray-3);
+  padding: var(--space-12) var(--space-24) var(--space-32);
+}
+.mypage-delete-sheet__handle {
+  display: block;
+  width: 40px;
+  height: 4px;
+  background: var(--grey-300);
+  border-radius: var(--radius-pill);
+  margin: 0 auto var(--space-20);
+}
+/* PC(≥1024px): 하단 시트 대신 화면 중앙에 뜨는 카드로 전환 */
+@media (min-width: 1024px) {
+  .mypage-delete-overlay { align-items: center; padding: var(--space-16); }
+  .mypage-delete-sheet { max-width: 390px; border-radius: var(--radius-16); padding: var(--space-24); }
+  .mypage-delete-sheet__handle { display: none; }
+}
+/* 모달 색 ≤3 규칙: 흰(bg)+회색+검정만. 파괴 신호는 제목·버튼(검정)과 카피가 담당하고
+   아이콘은 중립 회색으로 둠(레드핑크 제거로 색 4→3) */
+.mypage-delete-sheet__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--grey-100);
+  color: var(--grey-900);
+  margin-bottom: var(--space-16);
+}
+.mypage-delete-overlay__title { font-size: 19px; font-weight: var(--weight-bold); color: #000; line-height: 1.35; margin: 0 0 var(--space-12); }
+.mypage-delete-overlay__card { font-size: 14px; font-weight: var(--weight-medium); color: var(--txt-dark); margin: 0 0 var(--space-12); }
+.mypage-delete-overlay__warning { display: none; color: var(--txt-lighter); }
+.mypage-delete-overlay__warning.is-visible { display: inline; }
+.mypage-delete-overlay__desc { font-size: 12px; color: var(--txt-faint); line-height: 1.5; margin: 0 0 var(--space-24); }
+.mypage-btn-danger-pill {
+  display: block;
+  width: 100%;
+  height: 52px;
+  border-radius: var(--radius-16);
+  background: var(--black);
+  color: #fff;
+  border: none;
+  font-size: 15px;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+}
+.mypage-btn-danger-pill:active { transform: scale(var(--press-scale)); }
+.mypage-delete-sheet__close {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  border: none;
+  color: var(--txt-lighter);
+  font-size: 14px;
+  padding: var(--space-16) 0 0;
+  cursor: pointer;
+}
+
+.mypage-profile-bar__text { flex: 1; min-width: 0; padding-bottom: var(--space-8); }
+.mypage-profile-bar__name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: 20px;
+  font-weight: var(--weight-bold);
+  color: var(--txt-darkest);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.mypage-profile-bar__tag {
+  flex: none;
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  color: var(--txt-lighter);
+  background: var(--grey-100);
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-pill);
+}
+.mypage-profile-bar__sub {
+  font-size: 13px;
+  color: var(--txt-lighter);
+  margin: var(--space-4) 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- 정보 그룹: 영역별로 분리된 독립 블록(카드) ---------- */
+.mypage-info-group {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-12);
+  box-shadow: var(--ev-2);
+  overflow: hidden;
+}
+.mypage-info-group + .mypage-info-group { margin-top: var(--space-24); }
+/* 모바일: 상하 높이는 그대로 두고 좌우만 여백 없이 화면 끝까지 꽉 차게 */
+@media (max-width: 767px) {
+  .mypage-info-group {
+    margin-left: calc(-1 * var(--space-24));
+    margin-right: calc(-1 * var(--space-24));
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+}
+
+/* 잔여 크레딧 + 구독 정보: PC(≥1024px)에서만 반반 2컬럼, 그 이하는 그대로 위아래 스택 */
+.mypage-info-row-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-24);
+  margin-top: var(--space-24);
+}
+@media (min-width: 1024px) {
+  .mypage-info-row-grid { grid-template-columns: 1fr 1fr; }
+}
+.mypage-info-row-grid > .mypage-info-group + .mypage-info-group { margin-top: 0; }
+.mypage-info-row-grid + .mypage-info-group { margin-top: var(--space-24); }
+.mypage-info-group__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: 14px var(--space-20) var(--space-10);
+  background: var(--bg-surface);
+}
+.mypage-info-group__title { font-size: 13px; font-weight: var(--weight-semibold); color: var(--txt-lighter); margin: 0; }
+
+.mypage-info-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-24) var(--space-20);
+}
+.mypage-info-row + .mypage-info-row { border-top: 1px solid var(--border-neutral); }
+.mypage-info-row__icon { flex: none; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; color: var(--txt-faint); }
+.mypage-info-row__label { flex: none; width: 96px; font-size: 13px; color: var(--txt-lighter); }
+@media (max-width: 767px) {
+  .mypage-info-row__label { width: 62px; }
+}
+.mypage-info-row__value {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  color: var(--txt-darkest);
+}
+.mypage-info-row__value strong { font-size: 20px; font-weight: var(--weight-bold); color: var(--ink-primary); }
+.mypage-credit-unit { color: var(--ink-primary); }
+.mypage-info-row__desc { flex-basis: 100%; font-size: 12px; font-weight: var(--weight-regular); color: var(--txt-faint); }
+.mypage-info-icon {
+  display: none;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--txt-lighter);
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+}
+.mypage-info-icon:active { transform: scale(var(--press-scale-weak)); }
+@media (max-width: 767px) {
+  .mypage-info-icon { display: inline-flex; }
+  .mypage-info-row__desc { display: none; }
+}
+
+/* ---------- 인포 아이콘 클릭 시 뜨는 미니 정보 모달(모바일) ---------- */
+.mypage-info-modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  max-width: 220px;
+  background: var(--grey-900);
+  color: #fff;
+  border-radius: var(--radius-8);
+  box-shadow: var(--ev-gray-3);
+  padding: var(--space-10) var(--space-12);
+}
+.mypage-info-modal.is-open { display: block; }
+.mypage-info-modal::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: var(--mypage-info-tail-left, 16px);
+  width: 10px;
+  height: 10px;
+  background: var(--grey-900);
+  transform: translateX(-50%) rotate(45deg);
+}
+.mypage-info-modal__text { font-size: 12px; line-height: 1.5; color: #fff; margin: 0; }
+
+.mypage-btn-ghost {
+  flex: none;
+  background: transparent;
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-8);
+  color: var(--txt-lighter);
+  font-size: 13px;
+  height: 32px;
+  padding: 0 var(--space-12);
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+}
+.mypage-btn-ghost:active { transform: scale(var(--press-scale-weak)); }
+
+.mypage-payment-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-left: auto;
+  flex: none;
+}
+/* 모바일: 로고+카드사이름 위, 카드번호 아래, 기본/삭제는 우측 정렬 */
+@media (max-width: 479px) {
+  .mypage-payment-item {
+    display: grid;
+    grid-template-columns: 20px 1fr auto;
+    grid-template-areas:
+      "icon name actions"
+      "num  num  num";
+    align-items: center;
+    column-gap: var(--space-12);
+    row-gap: var(--space-6);
+  }
+  .mypage-payment-item .mypage-info-row__icon { grid-area: icon; }
+  .mypage-payment-item .mypage-info-row__label { grid-area: name; width: auto; }
+  .mypage-payment-item .mypage-info-row__value { grid-area: num; }
+  .mypage-payment-item .mypage-payment-actions { grid-area: actions; margin-left: 0; justify-self: end; }
+}
+.mypage-payment-default-label {
+  font-size: 12px;
+  font-weight: var(--weight-semibold);
+  color: var(--green-400);
+  background: var(--fill-accent-green);
+  border-radius: var(--radius-pill);
+  padding: var(--space-4) var(--space-10);
+}
+.mypage-payment-empty {
+  display: none;
+  padding: var(--space-24) var(--space-20);
+  text-align: center;
+}
+.mypage-payment-empty.is-visible { display: block; }
+.mypage-payment-empty__title { font-size: 14px; font-weight: var(--weight-semibold); color: var(--txt-darkest); margin: 0 0 var(--space-6); }
+.mypage-payment-empty__desc { font-size: 13px; color: var(--txt-lighter); margin: 0; line-height: 1.5; }
+
+/* ---------- 최하단: 로그아웃 / 회원탈퇴 ---------- */
+.mypage-footer-actions {
+  margin-top: var(--space-32);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-16);
+}
+.mypage-footer-actions .mypage-btn-outline { width: auto; max-width: none; height: 44px; padding: 0 var(--space-20); }
+.mypage-link-danger {
+  font-size: 13px;
+  color: var(--txt-faint);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}

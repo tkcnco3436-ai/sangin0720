@@ -1,0 +1,270 @@
+/* ============ 마이페이지 (커버 메시 그라디언트 + 프로필바 + 정보 그룹 리스트) ============ */
+.mypage,
+.mypage-delete-overlay,
+.mypage-card-overlay,
+.mypage-avatar-overlay,
+.mypage-crop-overlay {
+  --border-neutral: #F3F4FA;
+  --border-secondary: #F3F4FA;
+}
+.mypage {
+  padding-top: 68px;
+  padding-bottom: var(--space-96);
+  background: #F9FAFF;
+  min-height: 60vh;
+}
+.mypage__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-24); }
+/* 아바타 높이(100px)의 절반만큼만 끌어올려서 커버 경계에 걸치게 함 — 텍스트/버튼은 겹치지 않음 */
+.mypage-avatar-wrap { position: relative; flex: none; margin-top: -50px; }
+.mypage-hero__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-full);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: var(--weight-bold);
+  border: 4px solid #F3F4FA;
+  background: #fff;
+  box-shadow: var(--ev-2);
+}
+.mypage-avatar-edit {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--black);
+  color: #fff;
+  border: 2px solid var(--bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+}
+.mypage-avatar-edit:active { transform: scale(var(--press-scale)); }
+
+.mypage-hero__avatar-img {
+  display: none; /* JS가 style.display로 전환 — 클래스 display 규칙이 [hidden]보다 우선하는 걸 피하려 기본값을 여기서 none으로 둠 */
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 4px solid #F3F4FA;   /* 이니셜 아바타(.mypage-hero__avatar)와 동일 테두리색 */
+  box-shadow: var(--ev-2);
+}
+/* ---------- 프로필 사진 변경/기본 사진으로: 전체화면 팝업 ---------- */
+.mypage-avatar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--opacity-black-40);
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-16);
+}
+.mypage-avatar-overlay.is-open { display: flex; }
+.mypage-avatar-overlay__modal {
+  background: var(--bg-surface);
+  border-radius: var(--radius-16);
+  box-shadow: var(--ev-gray-3);
+  padding: var(--space-24);
+  width: 100%;
+  max-width: 390px;
+}
+.mypage-avatar-overlay__title { font-size: 16px; font-weight: var(--weight-bold); color: var(--txt-darkest); margin: 0 0 var(--space-16); text-align: center; }
+.mypage-avatar-overlay__option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  width: 100%;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-12);
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  color: var(--txt-darkest);
+  background: var(--grey-50);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+  margin-bottom: var(--space-8);
+}
+.mypage-avatar-overlay__option:active { transform: scale(var(--press-scale-weak)); }
+.mypage-avatar-overlay__option[data-mypage-avatar-default] { color: var(--txt-lighter); }
+.mypage-avatar-overlay .mypage-btn-outline { width: 100%; max-width: none; height: 44px; margin-top: var(--space-8); border: none; }
+
+/* ---------- 프로필 사진 크롭 모달 ---------- */
+.mypage-crop-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--opacity-black-40);
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-16);
+}
+.mypage-crop-modal {
+  background: var(--bg-surface);
+  border-radius: var(--radius-16);
+  box-shadow: var(--ev-gray-3);
+  padding: var(--space-24);
+  width: 100%;
+  max-width: 390px;
+  text-align: center;
+}
+.mypage-crop-modal__title { font-size: 16px; font-weight: var(--weight-bold); color: var(--txt-darkest); margin: 0 0 var(--space-6); }
+.mypage-crop-modal__hint { font-size: 12px; color: var(--txt-lighter); line-height: 1.5; margin: 0 0 var(--space-16); }
+.mypage-crop-stage {
+  width: 280px;
+  height: 280px;
+  margin: 0 auto var(--space-16);
+  border-radius: var(--radius-12);
+  overflow: hidden;
+  background: var(--grey-100);
+  cursor: grab;
+  touch-action: none;
+}
+.mypage-crop-stage:active { cursor: grabbing; }
+.mypage-crop-stage canvas { display: block; width: 100%; height: 100%; }
+.mypage-crop-zoom {
+  width: 100%;
+  margin-bottom: var(--space-20);
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+.mypage-crop-zoom::-webkit-slider-runnable-track { box-sizing: content-box; height: 4px; border: 3px solid #F3F4FA; border-radius: var(--radius-pill); background: var(--grey-200); }
+.mypage-crop-zoom::-moz-range-track { box-sizing: content-box; height: 4px; border: 3px solid #F3F4FA; border-radius: var(--radius-pill); background: var(--grey-200); }
+.mypage-crop-zoom::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--ink-primary);
+  cursor: pointer;
+  margin-top: -6px; /* (트랙 content 4px - thumb 16px) / 2, 트랙 중앙에 오도록 */
+}
+.mypage-crop-zoom::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--ink-primary);
+  cursor: pointer;
+}
+.mypage-crop-modal__actions { display: flex; gap: var(--space-8); }
+.mypage-crop-modal__actions .mypage-btn-outline,
+.mypage-crop-modal__actions .mypage-btn-primary { flex: 1; width: auto; height: 44px; }
+
+/* 모달 하단 액션 행: 취소/확정 버튼 가로 분할 — 카드 위자드(mypage)·이메일/비번 변경(edit) 공용 */
+.mypage-card-overlay__actions { display: flex; flex-wrap: nowrap; gap: var(--space-8); margin-top: var(--space-32); }
+.mypage-card-overlay__actions .mypage-btn-outline,
+.mypage-card-overlay__actions .mypage-btn-primary { flex: 1 1 0; min-width: 0; width: auto; max-width: none; height: 44px; }
+
+/* ---------- 로그아웃 확인 팝업: 바텀시트/중앙카드, 버튼 취소/로그아웃 반반 (mypage/mypage-login/withdraw 공용) ---------- */
+.mypage-logout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--opacity-black-40);
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+.mypage-logout-overlay.is-open { display: flex; }
+.mypage-logout-sheet {
+  background: var(--bg-surface);
+  width: 100%;
+  border-radius: var(--radius-20) var(--radius-20) 0 0;
+  box-shadow: var(--ev-gray-3);
+  padding: var(--space-12) var(--space-24) var(--space-32);
+}
+.mypage-logout-sheet__handle {
+  display: block;
+  width: 40px;
+  height: 4px;
+  background: var(--grey-300);
+  border-radius: var(--radius-pill);
+  margin: 0 auto var(--space-20);
+}
+.mypage-logout-overlay__title { font-size: 19px; font-weight: var(--weight-bold); color: #000; line-height: 1.35; margin: 0 0 var(--space-12); }
+.mypage-logout-overlay__desc { font-size: 13px; color: var(--txt-faint); line-height: 1.5; margin: 0 0 var(--space-24); }
+.mypage-logout-actions { display: flex; gap: var(--space-8); }
+.mypage-logout-actions > * { flex: 1 1 0; min-width: 0; height: 52px; }
+@media (min-width: 1024px) {
+  .mypage-logout-overlay { align-items: center; padding: var(--space-16); }
+  .mypage-logout-sheet { max-width: 390px; border-radius: var(--radius-16); padding: var(--space-24); }
+  .mypage-logout-sheet__handle { display: none; }
+}
+.mypage-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-16);
+  height: 48px;
+  padding: 0 var(--space-24);
+  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--motion-fast);
+}
+.mypage-btn-primary:active { transform: scale(var(--press-scale)); }
+.mypage-btn-primary:disabled { background: var(--disabled-gray); cursor: not-allowed; }
+.mypage-btn-primary:disabled:active { transform: none; }
+.mypage-form-field { display: block; margin-bottom: var(--space-16); }
+.mypage-form-field__label { display: block; font-size: 13px; color: var(--txt-lighter); margin-bottom: var(--space-6); }
+.mypage-form-input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-8);
+  padding: 0 var(--space-12);
+  font-size: 14px;
+  font-family: var(--font-sans);
+  color: var(--txt-darkest);
+  background: var(--bg-surface);
+}
+.mypage-form-input:focus,
+.mypage-form-card-number input:focus,
+.mypage-form-expiry input:focus { outline: 2px solid var(--border-active); outline-offset: 1px; }
+.mypage-form-input--sm { max-width: 120px; }
+.mypage-action {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: transparent;
+  border: none;
+  color: var(--txt-darkest);
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  padding: var(--space-4) var(--space-6);
+  transition: transform var(--motion-fast);
+}
+.mypage-action:active { transform: scale(var(--press-scale-weak)); }
+.mypage-btn-outline {
+  width: 100%;
+  max-width: 320px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-neutral);
+  border-radius: var(--radius-16);
+  color: var(--txt-darkest);
+  height: 48px;
+  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+}
+.mypage-btn-outline:active { transform: scale(var(--press-scale)); }
