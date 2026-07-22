@@ -613,7 +613,7 @@ body { --bg-page: #ffffff; background: #ffffff; }
 
 /* 비활성 = 흐리게 + 상세 접힘 / 활성 = 강조 + 펼침 (뷰포트 중앙 포커스) */
 .tl-item:not(.is-active) .tl-card { opacity: 0.5; }
-.tl-item.is-active .tl-card { border-color: var(--grey-400); box-shadow: var(--ev-gray-3); }
+.tl-item.is-active .tl-card { border-color: var(--grey-400); }
 .tl-item.is-active .tl-detail { grid-template-rows: 1fr; opacity: 1; margin-top: var(--space-20); }
 
 @media (max-width: 768px) {
