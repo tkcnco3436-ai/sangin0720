@@ -253,6 +253,11 @@ body { --bg-page: #ffffff; background: #ffffff; }
   .flexhero__caret { animation: none; }
 }
 
+@media (max-width: 768px) {
+  /* 모바일: 히어로 콘텐츠를 세로 중앙 → 상단으로 올림 */
+  .flexhero { height: auto; min-height: 560px; }
+  .flexhero__inner { justify-content: flex-start; padding-top: 92px; }
+}
 @media (max-width: 640px) {
   .flexhero__prompt { min-height: 64px; padding-left: var(--space-20); }
   .flexhero__send { width: 42px; height: 42px; }
