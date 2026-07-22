@@ -7,7 +7,7 @@
 
 | HTML | 설명 | CSS | JS |
 |---|---|---|---|
-| `index-flex.html` | 랜딩(히어로·로고밴드·How It Works·요금·후기·공지·푸터) | tokens, common, index, index-flex | common, index, index-flex |
+| `index.html` | 랜딩(히어로·로고밴드·How It Works·요금·후기·공지·푸터) | tokens, common, index, index-flex | common, index, index-flex |
 | `mypage.html` | 마이페이지(비로그인 헤더) | tokens, common, mypage-common, mypage | common, mypage-common, mypage |
 | `mypage-login.html` | 마이페이지(로그인 후 헤더) | tokens, common, mypage-common, mypage | common, mypage-common, mypage |
 | `edit.html` | 내 정보 수정 | tokens, common, mypage-common, edit | common, mypage-common, edit |
