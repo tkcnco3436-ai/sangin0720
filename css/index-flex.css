@@ -452,10 +452,10 @@ body { --bg-page: #ffffff; background: #ffffff; }
       "date    chevron";
     align-items: center;
     column-gap: var(--space-12);
-    row-gap: var(--space-6);
+    row-gap: var(--space-12);
     padding: var(--space-16) var(--space-4);
   }
-  .notice-item__badge { grid-area: badge; justify-self: start; }
+  .notice-item__badge { grid-area: badge; justify-self: start; min-width: auto; font-size: 12px; padding: 4px 10px; }
   .notice-item__title { grid-area: title; white-space: normal; }
   .notice-item__date  { grid-area: date; justify-self: start; }
   .notice-item__chevron { grid-area: chevron; align-self: center; }
